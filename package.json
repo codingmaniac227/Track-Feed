@@ -12,12 +12,15 @@
   },
   "license": "ISC",
   "author": "Marquise Davis",
-  "type": "commonjs",
+  "type": "module",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
     "start": "webpack serve --open --mode development",
-    "test": "jest"
+    "test": "jest",
+    "lint": "eslint src --ext .js",
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "@babel/core": "^7.28.0",
