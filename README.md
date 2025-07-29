@@ -100,10 +100,10 @@ npm run build
 ## Future Implementations
 
 ### Planned Phases
-1️⃣ **Todo Model & Project Model** – Implement core classes (title, due date, completion).
-2️⃣ **Controllers** – Add logic for creating, editing, and deleting todos and projects.
-3️⃣ **DOM Rendering** – Implement dynamic rendering via domController and views.
-4️⃣ **Persistence Layer** – Add storage.js to save data in localStorage.
-5️⃣ **Express Backend** – Transition to full‑stack with REST API endpoints.
-6️⃣ **Authentication & Security** – JWT auth, rate limiting, and secure middleware.
-7️⃣ **Deployment** – Dockerize and deploy to cloud platforms like Render or Railway.
+- 1️⃣ **Todo Model & Project Model** – Implement core classes (title, due date, completion).
+- 2️⃣ **Controllers** – Add logic for creating, editing, and deleting todos and projects.
+- 3️⃣ **DOM Rendering** – Implement dynamic rendering via domController and views.
+- 4️⃣ **Persistence Layer** – Add storage.js to save data in localStorage.
+- 5️⃣ **Express Backend** – Transition to full‑stack with REST API endpoints.
+- 6️⃣ **Authentication & Security** – JWT auth, rate limiting, and secure middleware.
+- 7️⃣ **Deployment** – Dockerize and deploy to cloud platforms like Render or Railway.
