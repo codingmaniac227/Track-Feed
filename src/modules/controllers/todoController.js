@@ -34,7 +34,7 @@ export function toggleTodo(todo) {
  * @param {Object} updates - { title?, description?, dueDate?, priority? }
  */
 
-export function editToto(todo, updates) {
+export function editTodo(todo, updates) {
     if (!(todo instanceof Todo)) {
         throw new Error('Only Todo instances can be edited')
     }
