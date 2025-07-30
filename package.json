@@ -15,18 +15,19 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-  "build": "vite build",
-  "preview": "vite preview",
-  "dev": "vite",
-  "start": "vite",
-  "test": "jest",
-  "lint": "eslint src --ext .js",
-  "format": "prettier --write .",
-  "prepare": "husky install"
-},
+    "build": "vite build",
+    "preview": "vite preview",
+    "dev": "vite",
+    "start": "vite",
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
+    "lint": "eslint src --ext .js",
+    "format": "prettier --write .",
+    "prepare": "husky install"
+  },
   "devDependencies": {
     "@babel/core": "^7.28.0",
     "@babel/preset-env": "^7.28.0",
+    "babel-jest": "^30.0.5",
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.3",

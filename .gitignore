@@ -3,6 +3,7 @@
 # =========================================
 node_modules/         # Dependencies (reinstallable from package.json)
 dist/                 # Ignore Vite build output entirely
+docs/                 # Ignore documentation entirely
 
 # =========================================
 # Environment & Config Files
