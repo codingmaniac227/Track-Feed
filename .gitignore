@@ -1,14 +1,13 @@
 # =========================================
 # Core Ignored Folders
 # =========================================
-node_modules/         # Dependencies (will be reinstalled from package.json)
-dist/*                # Ignore build output
-!dist/index.html      # But KEEP the HTML file (source of your app)
+node_modules/         # Dependencies (reinstallable from package.json)
+dist/                 # Ignore Vite build output entirely
 
 # =========================================
 # Environment & Config Files
 # =========================================
-.env                  # API keys, DB credentials (we'll add later for Express)
+.env
 .env.local
 .env.development.local
 .env.test.local
@@ -26,15 +25,15 @@ lerna-debug.log*
 # =========================================
 # Editor & System Junk
 # =========================================
-.DS_Store             # macOS
-Thumbs.db             # Windows
-.vscode/              # VS Code settings
-.idea/                # JetBrains IDEs
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
 
 # =========================================
-# Testing & Coverage (later)
+# Testing & Coverage
 # =========================================
-coverage/             # Jest/Testing reports
+coverage/
 *.lcov
 
 # =========================================
@@ -51,4 +50,3 @@ docker-compose.override.yml
 .parcel-cache/
 .next/
 out/
-node_modules
