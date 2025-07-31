@@ -35,34 +35,59 @@ This project begins as a **front‑end architecture showcase** but is designed t
 
 ---
 
-## Current File Structure
+## 📂 Full Project Structure
 
 ```plaintext
-src/
+Project-ToDoList/
 │
-├── index.js            # Entry point for Vite
-├── style.css           # Base stylesheet
+├── 📁 dist/                   # Production build output (Vite generates)
+│   └── index.html             # Bundled entry HTML
 │
-└── modules/
-    ├── models/         # Data structures (e.g. Todo, Project)
-    │   ├── todo.js
-    │   └── project.js
-    │
-    ├── controllers/    # Business logic for models
-    │   ├── todoController.js
-    │   └── projectController.js
-    │
-    ├── views/          # UI rendering and DOM control
-    │   ├── domController.js
-    │   ├── todoView.js
-    │   └── projectView.js
-    │
-    └── utilities/      # Helper functions & storage
-        ├── storage.js
-        └── helpers.js
-
-dist/                   # Auto‑generated production build
-└── index.html          # HTML template (output)
+├── 📁 src/                    # Source code
+│   ├── index.js               # Main entry point for Vite
+│   ├── style.css              # Base styles
+│   │
+│   └── 📁 modules/
+│       ├── 📁 models/         # Core data structures
+│       │   ├── todo.js
+│       │   └── project.js
+│       │
+│       ├── 📁 controllers/    # Business logic
+│       │   ├── todoController.js
+│       │   └── projectController.js
+│       │
+│       ├── 📁 views/          # UI & DOM handling (to be expanded)
+│       │   ├── domController.js
+│       │   ├── todoView.js
+│       │   └── projectView.js
+│       │
+│       └── 📁 utilities/      # Helpers, storage, future API utils
+│           ├── storage.js
+│           └── helpers.js
+│
+├── 📁 _test_/                 # (untracked: data integrity)
+│   ├── todo.test.js
+│   ├── project.test.js
+│   ├── todoController.test.js
+│   └── projectController.test.js
+│
+├── 📁 .husky/                 # Git hooks (linting & formatting before commits)
+│   └── pre-commit
+│
+├── .gitignore                 # Git tracking rules
+├── eslint.config.js           # ESLint configuration
+├── jest.config.cjs            # Jest testing configuration
+├── package.json               # Project metadata & scripts
+├── package-lock.json          # Dependency lockfile for npm
+├── prettier.config.js         # Prettier configuration
+├── README.md                  # Project overview (this file)
+│
+├── 📁 node_modules/           # All npm dependencies (ESLint, Prettier, Husky, Jest, Vite, etc.)
+│   └── … (dependencies collapsed for clarity)
+│
+└── (untracked: data integrity)
+    .env                       # Future environment variables
+    coverage/                  # Test coverage reports
 ```
 
 # STILL IN PROGRESS 
