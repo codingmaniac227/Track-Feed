@@ -1,6 +1,6 @@
-# To‑Do List App
+# TrackFeed App
 
-Welcome to **To‑Do List** — a **modular and scalable task management application** built with **JavaScript** and **Vite**.  
+Welcome to **TrackFeed** — a **modular and scalable task management application** built with **JavaScript** and **Vite**.  
 This project begins as a **front‑end architecture showcase** but is designed to evolve into a **full‑stack application** with Express, databases, authentication, and deployment.
 
 ---
