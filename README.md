@@ -65,7 +65,7 @@ Project-ToDoList/
 │           ├── storage.js
 │           └── helpers.js
 │
-├── 📁 _test_/                 # (untracked: data integrity)
+├── 📁 _test_/                 
 │   ├── todo.test.js
 │   ├── project.test.js
 │   ├── todoController.test.js
