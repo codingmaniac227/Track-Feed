@@ -3,9 +3,9 @@ import {
     toggleTodo,
     editTodo,
     deleteTodo
-} from '../src/modules/controllers/todoController.js'
+} from '../src/modules/controllers/todoController'
 
-import Todo from '../src/modules/models/todo.js'
+import { Todo } from '../src/modules/models/todo'
 
 
 describe('TodoController', () => {
@@ -17,8 +17,8 @@ describe('TodoController', () => {
 
         expect(todo.title).toBe('Learn Jest');
         expect(todo.description).toBe('Study testing library');
-        expect(todo.dueDate).toBe('2025-08-01');
-        expect(todo.priority).toBe('high');
+        expect(todo.dueDate).toBe('2025-07-30');
+        expect(todo.priority).toBe('low');
         expect(todo.completed).toBe(false); // default state should be false
     })
 

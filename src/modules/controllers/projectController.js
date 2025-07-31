@@ -1,5 +1,5 @@
-import Project from '../models/project.js'
-import Todo from '../models/todo.js'
+import { Project } from '../models/project'
+import { Todo } from '../models/todo'
 
 
 /**

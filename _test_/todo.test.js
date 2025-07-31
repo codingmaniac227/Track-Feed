@@ -1,4 +1,4 @@
-import Todo from '../src/modules/models/todo.js' // Pulls the Todo class that was written in todo.js
+import { Todo } from '../src/modules/models/todo' // Pulls the Todo class that was written in todo.js
 
 // First Test
 

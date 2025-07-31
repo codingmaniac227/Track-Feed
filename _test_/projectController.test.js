@@ -4,11 +4,11 @@ import {
     removeTodoFromProject,
     renameProject,
     deleteProject
-} from '../src/modules/controllers/projectController.js'
+} from '../src/modules/controllers/projectController'
 
 
-import Project from '../src/modules/models/project.js'
-import Todo from '../src/modules/models/todo.js'
+import { Project } from '../src/modules/models/project'
+import { Todo } from '../src/modules/models/todo'
 
 
 describe('ProjectController', () => { // groups related tests together

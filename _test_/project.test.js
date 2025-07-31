@@ -1,5 +1,5 @@
-import Todo from '../src/modules/models/todo.js'
-import Project from '../src/modules/models/project.js'
+import { Todo } from '../src/modules/models/todo'
+import { Project } from '../src/modules/models/project'
 
 
 test('Project initializes with a name and empty todos array', () => { // Description of what's being tested
