@@ -63,3 +63,15 @@ export function renameProject(project, newName) {
 export function deleteProject(projectList, index) {
     projectList.splice(index, 1)
 }
+
+/**
+ * Complete a Project from an array
+ * @param {number} projectId - ID of the project
+ */
+
+export function completeProject(projectId) {
+    const project = projects.find(p => p.id === projectId)
+    if (project) {
+        project.completed = !project.completed
+    }
+}
