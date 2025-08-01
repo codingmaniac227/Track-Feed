@@ -3,10 +3,33 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>To‑Do List</title>
+  <title>TrackFeed</title>
 </head>
 <body>
-  <div id="app"></div>
+  <!-- HEADER -->
+  <header>
+    <h1>TrackFeed</h1>
+  </header>
+
+  <!-- MAIN -->
+  <main id="layout">
+    
+    <!--SECTIONS -->
+    <section id="projects">
+      <h2>Projects</h2>
+      <button id="add-project-btn">➕ Add Project</button>
+      <ul id="project-list"></ul>
+    </section>
+
+    <section id="todos">
+      <h2>Todos</h2>
+      <button id="add-todo-btn">➕ Add Todo</button>
+      <ul id="todo-list"></ul>
+    </section>
+    
+  </main>
+
+  <!-- VITE ENTRY POINT-->
   <script type="module" src="/src/main.js"></script>
 </body>
 </html>
