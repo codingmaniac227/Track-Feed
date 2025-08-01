@@ -66,11 +66,12 @@ export function deleteProject(projectList, index) {
 
 /**
  * Complete a Project from an array
+ * @param {Array} projectList - Array of Project instances
  * @param {number} projectId - ID of the project
  */
 
-export function completeProject(projectId) {
-    const project = projects.find(p => p.id === projectId)
+export function completeProject(projectList, projectId) {
+    const project = projectList.find(p => p.id === projectId)
     if (project) {
         project.completed = !project.completed
     }
