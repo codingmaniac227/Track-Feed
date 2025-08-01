@@ -31,5 +31,17 @@ export const domController = {
         }
       }
     })
+
+    // Complete project
+    document.querySelector('#complete-project-btn')?.addEventListener('click', (e) => {
+        const target = e.target
+        if (target instanceof HTMLButtonElement && target.classList.contains('complete-project-btn')) {
+            const projectId = target.dataset.projectId
+            if (projectId) {
+                projectController.completeProject(projectId)
+                projectView.render(projectController.getAllProjects())
+            } 
+        }
+    })
   }
 }   
