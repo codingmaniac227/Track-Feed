@@ -9,8 +9,8 @@ export const allProjects = []
 export const allTodos = []
 
 export const domController = {
-  init() {
-    const savedData = loadData() // Loads saved data from storage
+  async init() {
+    const savedData = await loadData() // Loads saved data from storage
 
     allProjects.push(...savedData.projects)
     allTodos.push(...savedData.todos)
@@ -24,19 +24,19 @@ export const domController = {
 
   bindEvents() {
     // Add Project
-    document.querySelector('#add-project-btn')?.addEventListener('click', () => {
+    document.querySelector('#add-project-btn')?.addEventListener('click', async () => {
       const projectName = prompt('Project name:')
       if (projectName) {
         const newProject = projectController.createProject(projectName)
         allProjects.push(newProject)
         projectView.render(allProjects)
 
-        saveData(allProjects, allTodos) // Save after the state change
+        await saveData(allProjects, allTodos) // Save after the state change
       }
     })
 
     // Delete project
-    document.querySelector('#project-list')?.addEventListener('click', (e) => {
+    document.querySelector('#project-list')?.addEventListener('click', async (e) => {
         const target = e.target
         if (target instanceof HTMLButtonElement && target.classList.contains('delete-project-btn')) {
             const projectId = target.dataset.projectId
@@ -44,13 +44,13 @@ export const domController = {
             projectController.deleteProject(allProjects, projectId)
             projectView.render(allProjects)
 
-            saveData(allProjects, allTodos) // Save after the state change
+            await saveData(allProjects, allTodos) // Save after the state change
         }
       }
     })
 
     // Complete project
-    document.querySelector('#project-list')?.addEventListener('click', (e) => {
+    document.querySelector('#project-list')?.addEventListener('click', async (e) => {
         const target = e.target
         if (target instanceof HTMLButtonElement && target.classList.contains('complete-project-btn')) {
             const projectId = target.dataset.projectId
@@ -58,25 +58,25 @@ export const domController = {
                 projectController.completeProject(allProjects, projectId)
                 projectView.render(allProjects)
 
-                saveData(allProjects, allTodos) // Save after the state change
+                await saveData(allProjects, allTodos) // Save after the state change
             } 
         }
     })
 
     // Add Todo
-    document.querySelector('#add-todo-btn')?.addEventListener('click', (e) => {
+    document.querySelector('#add-todo-btn')?.addEventListener('click', async (e) => {
         const todoTitle = prompt('Todo title:')
         if (todoTitle) {
             const newTodo = todoController.createTodo(todoTitle)
             allTodos.push(newTodo) // Pushes the todo into an array 
             todoView.render(allTodos)
 
-            saveData(allProjects, allTodos) // Save after the state change
+            await saveData(allProjects, allTodos) // Save after the state change
         }
     })
 
     // Delete Todo
-    document.querySelector('#todo-list')?.addEventListener('click', (e) => {
+    document.querySelector('#todo-list')?.addEventListener('click', async (e) => {
         const target = e.target
         if (target instanceof HTMLButtonElement && target.classList.contains('delete-todo-btn')) {
             const todoId = target.dataset.todoId
@@ -84,13 +84,13 @@ export const domController = {
                 todoController.deleteTodo(todoId, allTodos)
                 todoView.render(allTodos)
 
-                saveData(allProjects, allTodos) // Save after the state change
+                await saveData(allProjects, allTodos) // Save after the state change
             }
         }
     })
 
     // Complete Todo
-    document.querySelector('#todo-list')?.addEventListener('click', (e) => {
+    document.querySelector('#todo-list')?.addEventListener('click', async (e) => {
         const target = e.target
         if (target instanceof HTMLButtonElement && target.classList.contains('complete-todo-btn')) {
             const todoId = target.dataset.todoId
@@ -98,14 +98,14 @@ export const domController = {
                 todoController.toggleComplete(todoId, allTodos)
                 todoView.render(allTodos)
 
-                saveData(allProjects, allTodos) // Save after the state change
+                await saveData(allProjects, allTodos) // Save after the state change
             }
         }
     })
 
     // Reset Memory
-    document.querySelector('#reset-btn')?.addEventListener('click', () => {
-        clearData()
+    document.querySelector('#reset-btn')?.addEventListener('click', async () => {
+        await clearData()
         allProjects.length = 0
         allTodos.length = 0
         projectView.render(allProjects)
