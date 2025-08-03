@@ -3,13 +3,22 @@ import { projectController } from '../controllers/projectController'
 import { todoView } from './todoView'
 import { projectView } from './projectView'
 
+import { saveData, loadData, clearData } from '...utilities/storage'
+
 export const allProjects = []
 export const allTodos = []
 
 export const domController = {
   init() {
+    const savedData = loadData() // Loads saved data from storage
+
+    allProjects.push(...savedData.projects)
+    allTodos.push(...savedData.todos)
+
     projectView.render(projectController.getAllProjects())
     todoView.render(allTodos)
+
+
     this.bindEvents()
   },
 
@@ -21,6 +30,8 @@ export const domController = {
         const newProject = projectController.createProject(projectName)
         allProjects.push(newProject)
         projectView.render(allProjects)
+
+        saveData(allProjects, allTodos) // Save after the state change
       }
     })
 
@@ -32,6 +43,8 @@ export const domController = {
             if (projectId) {
             projectController.deleteProject(allProjects, projectId)
             projectView.render(allProjects)
+
+            saveData(allProjects, allTodos) // Save after the state change
         }
       }
     })
@@ -44,6 +57,8 @@ export const domController = {
             if (projectId) {
                 projectController.completeProject(allProjects, projectId)
                 projectView.render(allProjects)
+
+                saveData(allProjects, allTodos) // Save after the state change
             } 
         }
     })
@@ -55,6 +70,8 @@ export const domController = {
             const newTodo = todoController.createTodo(todoTitle)
             allTodos.push(newTodo) // Pushes the todo into an array 
             todoView.render(allTodos)
+
+            saveData(allProjects, allTodos) // Save after the state change
         }
     })
 
@@ -66,6 +83,8 @@ export const domController = {
             if (todoId) {
                 todoController.deleteTodo(todoId, allTodos)
                 todoView.render(allTodos)
+
+                saveData(allProjects, allTodos) // Save after the state change
             }
         }
     })
@@ -78,8 +97,19 @@ export const domController = {
             if (todoId) {
                 todoController.toggleComplete(todoId, allTodos)
                 todoView.render(allTodos)
+
+                saveData(allProjects, allTodos) // Save after the state change
             }
         }
+    })
+
+    // Reset Memory
+    document.querySelector('#reset-btn')?.addEventListener('click', () => {
+        clearData()
+        allProjects.length = 0
+        allTodos.length = 0
+        projectView.render(allProjects)
+        todoView.render(allTodos)
     })
   }
 }   
