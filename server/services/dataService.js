@@ -2,6 +2,7 @@ import fs from 'fs/promises'
 
 const DB_FILE = './db.json'
 
+
 export async function loadData() {
     try {
         const data = await fs.readFile(DB_FILE, 'utf-8')
