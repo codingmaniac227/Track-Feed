@@ -59,3 +59,10 @@ export function deleteTodo(todoId, todoList) {
         todoList.splice(index, 1)
     }
 }
+
+export const todoController = {
+    createTodo,
+    deleteTodo,
+    toggleComplete,
+    editTodo
+}

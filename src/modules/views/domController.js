@@ -3,21 +3,23 @@ import { projectController } from '../controllers/projectController'
 import { todoView } from './todoView'
 import { projectView } from './projectView'
 
-import { saveData, loadData, clearData } from '...utilities/storage'
+import { saveData, loadData, clearData } from '../utilities/storage'
 
 export const allProjects = []
 export const allTodos = []
 
 export const domController = {
+    
   async init() {
     const savedData = await loadData() // Loads saved data from storage
+    console.log("✅ LOADED PROJECTS:", savedData.projects);
+    console.log("✅ LOADED TODOS:", savedData.todos);
 
     allProjects.push(...savedData.projects)
     allTodos.push(...savedData.todos)
 
-    projectView.render(projectController.getAllProjects())
+    projectView.render(allProjects)
     todoView.render(allTodos)
-
 
     this.bindEvents()
   },

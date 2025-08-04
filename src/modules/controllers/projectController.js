@@ -76,3 +76,22 @@ export function completeProject(projectList, projectId) {
         project.completed = !project.completed
     }
 }
+
+/**
+ * Get all projects
+ * @param {Array} projectList - array of project instances
+ * @returns {Array} - returns all projects
+ */
+export function getAllProjects(projectList) {
+    return projectList
+}
+
+export const projectController = {
+    createProject,
+    addTodoToProject,
+    removeTodoFromProject,
+    renameProject,
+    deleteProject,
+    completeProject,
+    getAllProjects
+}

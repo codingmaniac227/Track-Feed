@@ -1,22 +1,31 @@
 export const projectView = {
-    render(projects) {
-        const projectList = document.querySelector('#project-list')
-        if (!projectList) return
+  render(projects = []) {
+    console.log("🖌 projectView.render CALLED", new Date().toLocaleTimeString())
+    console.log("   Projects passed in:", projects)
 
-        projectList.innerHTML = '' // Clears contianer before re-rendering
+    const projectList = document.querySelector('#project-list');
+    if (!projectList) return;
 
-        projects.forEach(project => {
-            const li = document.createElement('li')
-            li.textContent = project.name
+    projectList.innerHTML = ''; // Clear container before rendering
 
-            const deleteBtn = document.createElement('button') // Creates the delete button
-            deleteBtn.textContent = 'Delete'
-            deleteBtn.classList.add('delete-project-btn')
-            deleteBtn.dataset.projectId = project.id // Store the project ID for later
+    projects.forEach(project => {
+      const li = document.createElement('li');
 
-            li.appendChild(deleteBtn) // Append the delete button to the li
-            
-            projectList.appendChild(li) // Add the li to the project list
-        })
-    }
-}
+      // Add span for the project name
+      const nameSpan = document.createElement('span');
+      console.log("🎯 Setting text for project:", project.name)
+      nameSpan.textContent = project.name;
+      console.log("✅ Final span after text set:", nameSpan)
+      li.appendChild(nameSpan);
+
+      // Create delete button
+      const deleteBtn = document.createElement('button');
+      deleteBtn.textContent = 'Delete';
+      deleteBtn.classList.add('delete-project-btn');
+      deleteBtn.dataset.projectId = project.id;
+      li.appendChild(deleteBtn);
+
+      projectList.appendChild(li);
+    });
+  }
+};
