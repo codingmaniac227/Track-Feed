@@ -1,12 +1,32 @@
 import express from 'express'
 import cors from 'cors'
+import helmet from 'helmet'
+import { limiter } from './middleware/rateLimiter.js'
 import { loadData } from './services/dataService.js'
 import createProjectRoutes from './routes/projects.js'
 import createTodoRoutes from './routes/todos.js'
 
 const app = express()
+app.use(helmet())
+app.use(limiter)
 
-app.use(cors())
+const allowedOrigins = [
+    'https://trackfeed.netlify.app',
+    'https://localhost:5173'
+]
+
+const corsOptions = {
+    origin: (origin, callback) => {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    },
+    optionsSuccessStatus: 200,
+}
+app.use(cors(corsOptions))
+
 app.use(express.json())
 
 // In-memory data wrapped in refs (so routes can mutate)
