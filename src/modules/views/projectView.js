@@ -13,9 +13,9 @@ export const projectView = {
 
       // Add span for the project name
       const nameSpan = document.createElement('span');
-      console.log("🎯 Setting text for project:", project.name)
+      console.log("Setting text for project:", project.name)
       nameSpan.textContent = project.name;
-      console.log("✅ Final span after text set:", nameSpan)
+      console.log("Final span after text set:", nameSpan)
       li.appendChild(nameSpan);
 
       // Create delete button
