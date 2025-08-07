@@ -1,5 +1,7 @@
 import express from 'express'
 import { saveData } from '../services/dataService.js'
+import { body, validationResult } from 'express-validator'
+
 
 export default function createProjectRoutes(projectsRef, todosRef) {
     const router = express.Router()
@@ -10,11 +12,21 @@ export default function createProjectRoutes(projectsRef, todosRef) {
     })
 
     // Add project
-    router.post('/', async (req, res) => {
-        const project = req.body
-        projectsRef.value.push(project)
-        await saveData(projectsRef.value, todosRef.value)
-        res.status(201).json(project)
+    router.post('/',
+        [
+            body('id').isString().notEmpty(),
+            body('name').isString().notEmpty()
+        ],
+        async (req, res) => {
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() })
+            }
+
+            const project = req.body
+            projectsRef.value.push(project)
+            await saveData(projectsRef.value, todosRef.value)
+            res.status(201).json(project)
     })
 
     // Delete project by ID
@@ -32,18 +44,29 @@ export default function createProjectRoutes(projectsRef, todosRef) {
     })
 
     // Patch project
-    router.patch('/:id', async (req, res) => {
-        const { id } = req.params
-        const updates = req.body
+    router.patch('/:id', 
+        [
+            body('name').optional().isString().notEmpty(),
+            body('completed').optional().isBoolean()
+        ],
+        async (req, res) => {
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() })
+            }
 
-        const project = projectsRef.value.find(p => p.id === id)
-        if (!project) {
-            return res.status(404).json({ message: 'Project Not Found' })
-        }
+            const { id } = req.params
+            const updates = req.body
 
-        Object.assign(project, updates)
-        await saveData(projectsRef.value, todosRef.value)
-        res.json({ message: 'Project Updated', project })
+            const project = projectsRef.value.find(p => p.id === id)
+            if (!project) {
+                return res.status(404).json({ message: 'Project Not Found' })
+            }
+
+            Object.assign(project, updates)
+            await saveData(projectsRef.value, todosRef.value)
+            
+            res.json({ message: 'Project Updated', project })
     })
 
     return router
