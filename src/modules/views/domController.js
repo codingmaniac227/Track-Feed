@@ -12,8 +12,8 @@ export const domController = {
     
   async init() {
     const savedData = await loadData() // Loads saved data from storage
-    console.log("✅ LOADED PROJECTS:", savedData.projects);
-    console.log("✅ LOADED TODOS:", savedData.todos);
+    console.log("LOADED PROJECTS:", savedData.projects);
+    console.log("LOADED TODOS:", savedData.todos);
 
     allProjects.push(...savedData.projects)
     allTodos.push(...savedData.todos)
