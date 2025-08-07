@@ -1,5 +1,6 @@
 import express from 'express'
 import { saveData } from '../services/dataService.js'
+import { validationResult } from 'express-validator'
 
 export default function createTodoRoutes(projectsRef, todosRef) {
     const router = express.Router()
@@ -10,11 +11,21 @@ export default function createTodoRoutes(projectsRef, todosRef) {
     })
 
     // Add todo
-    router.post('/', async (req, res) => {
-        const todo = req.body
-        todosRef.value.push(todo)
-        await saveData(projectsRef.value, todosRef.value)
-        res.status(201).json(todo)
+    router.post('/', 
+        [
+            body('id').isString().notEmpty(),
+            body('title').isString().notEmpty(),
+            body('completed').optional().isBoolean()
+        ],
+        async (req, res) => {
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() })
+            }
+            const todo = req.body
+            todosRef.value.push(todo)
+            await saveData(projectsRef.value, todosRef.value)
+            res.status(201).json(todo)
     })
 
     // Delete todo by ID
@@ -32,18 +43,28 @@ export default function createTodoRoutes(projectsRef, todosRef) {
     })
 
     // Patch todo
-    router.patch('/:id', async (req, res) => {
-        const { id } = req.params
-        const updates = req.body
+    router.patch('/:id', 
+        [
+            body('title').optional().isString().notEmpty(),
+            body('completed').optional().isBoolean()
+        ],
+        async (req, res) => {
+            const errors = validationResult(req)
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() })
+            }
+            const { id } = req.params
+            const updates = req.body
 
-        const todo = todosRef.value.find(t => t.id === id)
-        if (!todo) {
-            return res.status(404).json({ message: 'Todo Not Found' })
-        }
+            const todo = todosRef.value.find(t => t.id === id)
+            if (!todo) {
+                return res.status(404).json({ message: 'Todo Not Found' })
+            }
 
-        Object.assign(todo, updates)
-        await saveData(projectsRef.value, todosRef.value)
-        res.json({ message: 'Todo Updated', todo })
+            Object.assign(todo, updates)
+            await saveData(projectsRef.value, todosRef.value)
+            
+            res.json({ message: 'Todo Updated', todo })
     })
 
     return router
