@@ -2,6 +2,7 @@
 # Core Ignored Folders
 # =========================================
 node_modules/         # Dependencies (reinstallable from package.json)
+server/node_modules/  # Dependcies for backend
 dist/                 # Ignore Vite build output entirely
 docs/                 # Ignore documentation entirely
 
