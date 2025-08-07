@@ -1,7 +1,7 @@
 export const todoView = {
   render(todos = []) {
-    console.log("🖌 todoView.render CALLED", new Date().toLocaleTimeString())
-    console.log("   Todos passed in:", todos)
+    console.log("todoView.render CALLED", new Date().toLocaleTimeString())
+    console.log("Todos passed in:", todos)
 
     const todoList = document.querySelector('#todo-list')
     if (!todoList) return
@@ -13,9 +13,9 @@ export const todoView = {
 
       // Add span for the todo title
       const titleSpan = document.createElement('span')
-      console.log("🎯 Setting text for todo:", todo.title)
+      console.log("Setting text for todo:", todo.title)
       titleSpan.textContent = todo.title
-      console.log("✅ Final span after text set:", titleSpan)
+      console.log("Final span after text set:", titleSpan)
       li.appendChild(titleSpan)
 
       if (todo.completed) {
