@@ -5,7 +5,43 @@
       "name": "Test PRoject",
       "todos": [],
       "completed": false
+    },
+    {
+      "id": "646a136a-e0ef-4048-885f-04c2cb64f947",
+      "name": "My First Project",
+      "completed": false,
+      "todos": []
+    },
+    {
+      "id": "198e0ba2-ec91-43cd-8c21-badcd6f84f95",
+      "name": "Project A",
+      "completed": false,
+      "todos": [
+        "a1cd0754-121a-4ee5-9a94-3e310da599ca"
+      ]
+    },
+    {
+      "id": "03de5865-a8b0-4d96-968c-061e8e8a23b6",
+      "name": "Project B",
+      "completed": false,
+      "todos": []
+    },
+    {
+      "id": "7b34ae9b-bbd3-430a-bc0c-e7904115dca5",
+      "name": "My First Project",
+      "completed": false,
+      "todos": []
     }
   ],
-  "todos": []
+  "todos": [
+    {
+      "id": "a1cd0754-121a-4ee5-9a94-3e310da599ca",
+      "projectId": "198e0ba2-ec91-43cd-8c21-badcd6f84f95",
+      "title": "First task",
+      "description": "Demo item",
+      "dueDate": null,
+      "priority": "low",
+      "completed": false
+    }
+  ]
 }
