@@ -6,7 +6,6 @@ console.log('VITE FILE CHECK:', import.meta.glob('./views/*'));
 import  { domController } from './modules/views/domController.js';
 
 import { todoView } from './modules/views/todoView.js'
-import { todos } from './modules/controllers/todoController.js'
 
 // Initialize the app (attach events, load data, render UI)
 domController.init();
