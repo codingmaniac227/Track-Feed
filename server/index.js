@@ -19,18 +19,23 @@ app.use(limiter)
 
 const corsOptions = {
   origin(origin, cb) {
-    if (!origin || config.CORS_ORIGINS.includes(origin)) return cb(null, true)
-    return cb(new Error('CORS: origin not allowed'))
+    if (!origin) return cb(null, true) // Allow server-to-server / curl requests
+
+    const allowed = config.CORS_ORIGINS.includes(origin)
+    if (!allowed) {
+      console.warn('CORS blocked:', origin, 'Allowed origins:', config.CORS_ORIGINS)
+    }
+    cb(null, allowed)
   },
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: false,
   maxAge: 600,
 }
-app.use('/auth', authRoutes)
-app.options(['/projects', '/todos'], cors(corsOptions))
-app.use('/projects', cors(corsOptions))
-app.use('/todos', cors(corsOptions))
+
+// ✅ Apply CORS to all routes, including /auth
+app.use(cors(corsOptions))
+app.options('*', cors(corsOptions))
 
 app.use(express.json({ limit: '100kb' }))
 
@@ -46,6 +51,7 @@ await init()
 
 app.get('/', (req, res) => res.send('Express server is running!'))
 
+app.use('/auth', authRoutes)
 app.use('/projects', createProjectRoutes(projectsRef, todosRef))
 app.use('/todos', createTodoRoutes(projectsRef, todosRef))
 
