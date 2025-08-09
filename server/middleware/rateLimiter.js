@@ -1,16 +1,20 @@
+
 import rateLimit from 'express-rate-limit'
 
-// Read limits from env with safe fallbacks
-const minutes = Math.max(1, Number(process.env.RATE_LIMIT_WINDOW_MINUTES ?? 15))
-const windowMs = minutes * 60 * 1000
-const max = Math.max(1, Number(process.env.RATE_LIMIT_MAX ?? 100))
+const toInt = (v, def) => {
+  const n = Number(v)
+  return Number.isFinite(n) ? n : def
+}
 
-// Consistent JSON on 429 and standardized headers
+const minutes = toInt(process.env.RATE_LIMIT_WINDOW_MINUTES, 15)
+const windowMs = minutes * 60 * 1000
+const max = toInt(process.env.RATE_LIMIT_MAX, 100)
+
 export const limiter = rateLimit({
   windowMs,
   max,
-  standardHeaders: true,   // adds RateLimit-Limit / -Remaining / -Reset
-  legacyHeaders: false,    // no X-RateLimit-* headers
+  standardHeaders: true,
+  legacyHeaders: false,
   handler: (req, res) => {
     res.status(429).json({
       success: false,

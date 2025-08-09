@@ -8,7 +8,8 @@ import { limiter } from './middleware/rateLimiter.js'
 import { loadData } from './services/dataService.js'
 import createProjectRoutes from './routes/projects.js'
 import createTodoRoutes from './routes/todos.js'
-import { config } from './config.js'   
+import { config } from './config.js'
+import authRoutes from './routes/auth.routes.js'
 
 const app = express()
 app.disable('x-powered-by')
@@ -16,7 +17,6 @@ app.use(helmet())
 app.use(requestId)
 app.use(limiter)
 
-// build CORS from centralized config
 const corsOptions = {
   origin(origin, cb) {
     if (!origin || config.CORS_ORIGINS.includes(origin)) return cb(null, true)
@@ -25,19 +25,17 @@ const corsOptions = {
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: false,
-  maxAge: 600
+  maxAge: 600,
 }
-
+app.use('/auth', authRoutes)
 app.options(['/projects', '/todos'], cors(corsOptions))
 app.use('/projects', cors(corsOptions))
 app.use('/todos', cors(corsOptions))
 
-app.use(express.json({ limit: '100kb '}))
+app.use(express.json({ limit: '100kb' }))
 
-let projects = []
-let todos = []
-const projectsRef = { value: projects }
-const todosRef = { value: todos }
+const projectsRef = { value: [] }
+const todosRef = { value: [] }
 
 const init = async () => {
   const data = await loadData()
@@ -51,9 +49,6 @@ app.get('/', (req, res) => res.send('Express server is running!'))
 app.use('/projects', createProjectRoutes(projectsRef, todosRef))
 app.use('/todos', createTodoRoutes(projectsRef, todosRef))
 
-app.use(notFound)
-app.use(errorHandler)
-
 if (config.NODE_ENV !== 'production') {
   app.delete('/reset', async (req, res) => {
     projectsRef.value = []
@@ -62,6 +57,14 @@ if (config.NODE_ENV !== 'production') {
   })
 }
 
-app.listen(config.PORT, () =>
-  console.log(`Server running on http://localhost:${config.PORT}`)
-)
+app.use(notFound)
+app.use(errorHandler)
+
+export { app } // <-- important: export app for supertest
+
+// Only start the HTTP listener outside of tests
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(config.PORT, () =>
+    console.log(`Server running on http://localhost:${config.PORT}`)
+  )
+}

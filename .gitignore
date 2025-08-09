@@ -9,7 +9,10 @@ docs/                 # Ignore documentation entirely
 # =========================================
 # Environment & Config Files
 # =========================================
-.env
+.env*
+server/.env*
+!server/.env.example
+!.env.example
 .env.local
 .env.development.local
 .env.test.local
